@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: test-server
+  namespace: default
+  labels:
+    app: test-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: test-server
+  template:
+    metadata:
+      labels:
+        app: test-server
+    spec:
+      containers:
+        -
+          name: test-server
+          image: angadisachin2/http-echo:latest
+          args:
+          - "-text=hello from test-server"
+          - "-listen=:80"
+          resources:
+            requests:
+              cpu: 100m
+              memory: 100Mi
+          ports:
+           -
+            name: server-port
+            containerPort: 80
